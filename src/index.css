@@ -1,21 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Inter", sans-serif;
+}
+
 .bg-color {
-  background-color: #ff3811;
+  @apply bg-[#ff3811];
 }
 .text-color {
-  color: #ff3811;
+  @apply text-[#ff3811];
 }
 
 .bg-sec-color {
-  background-color: #151515;
+  @apply bg-[#151515];
 }
 .text-sec-color {
-  color: #151515;
+  @apply text-[#151515];
 }
 
 .text-p {
-  color: #737373;
+  @apply text-[#737373];
 }

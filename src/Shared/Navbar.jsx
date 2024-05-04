@@ -69,9 +69,11 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         <BiSearch className="text-2xl mr-6" />
-        <span className="btn btn-outline border-[#FF3811] text-color hover:text-white hover:bg-[#FF3811] hover:border-[#FF3811]">
-          Appointment
-        </span>
+        <Link to="/login">
+          <span className="btn btn-outline border-[#FF3811] text-color hover:text-white hover:bg-[#FF3811] hover:border-[#FF3811]">
+            Appointment
+          </span>
+        </Link>
       </div>
     </div>
   );
