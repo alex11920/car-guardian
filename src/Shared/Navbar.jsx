@@ -1,6 +1,6 @@
 import { BiSearch } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import Logo from "/public/logo.svg";
+import Logo from "/logo.svg";
 
 const Navbar = () => {
   const navLinks = (

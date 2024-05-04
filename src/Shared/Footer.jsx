@@ -1,5 +1,5 @@
 import { GrGoogle, GrInstagram, GrLinkedin, GrTwitter } from "react-icons/gr";
-import LogoDown from "/public/logo-down.svg";
+import LogoDown from "/logo-down.svg";
 const Footer = () => {
   return (
     <footer className="footer p-32 bg-sec-color text-white">
