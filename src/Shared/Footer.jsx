@@ -6,7 +6,7 @@ const Footer = () => {
       <aside>
         <img src={LogoDown} alt="logo-footer" />
         <p className="max-w-72">
-          Your car's ultimate protector. From tune-ups to emergencies, we have
+          Your car is ultimate protector. From tune-ups to emergencies, we have
           got you covered. Drive worry-free with our expert care and swift
           assistance, ensuring smooth travels at every turn.
         </p>
