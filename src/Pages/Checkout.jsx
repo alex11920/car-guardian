@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../Controller/AuthProvider";
+import toast, { Toaster } from "react-hot-toast";
 
 const Checkout = () => {
+  const { user } = useContext(AuthContext);
   const { id } = useParams();
   const [serviceData, setServiceData] = useState(null);
 
@@ -23,13 +26,43 @@ const Checkout = () => {
     e.preventDefault();
     const form = e.target;
 
-    const fName = form.fName.value;
-    const lName = form.lName.value;
+    const name = form.name.value;
     const phone = form.phone.value;
     const email = form.email.value;
+    const date = form.date.value;
     const message = form.message.value;
+    const userEmail = user?.email;
+    const serviceID = serviceData?.service_id;
+    const serviceTitle = serviceData?.title;
+    const servicePrice = serviceData?.price;
+    const order = {
+      name,
+      phone,
+      date,
+      email,
+      message,
+      userEmail,
+      serviceID,
+      serviceTitle,
+      servicePrice,
+    };
 
-    console.log(fName, lName, phone, email, message);
+    console.log(order);
+
+    fetch("http://localhost:5000/checkout", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(order),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          toast.success("Thank you for booking!");
+        }
+        form.reset();
+      });
   };
 
   return (
@@ -61,11 +94,11 @@ const Checkout = () => {
               <div className="grid grid-cols-2 gap-6">
                 <div className="form-control">
                   <label className="text-lg font-semibold">Service ID:</label>
-                  <p className="text-xl">{serviceData.service_id}</p>
+                  <p className="text-xl">{serviceData?.service_id}</p>
                 </div>
                 <div className="form-control">
                   <label className="text-lg font-semibold">Title:</label>
-                  <p className="text-xl">{serviceData.title}</p>
+                  <p className="text-xl">{serviceData?.title}</p>
                 </div>
               </div>
             </div>
@@ -73,24 +106,9 @@ const Checkout = () => {
           <div className="form-control">
             <input
               type="text"
-              name="fName"
-              placeholder="First Name"
-              className="input w-full"
-            />
-          </div>
-          <div className="form-control">
-            <input
-              type="text"
-              name="lName"
-              placeholder="Last Name"
-              className="input w-full"
-            />
-          </div>
-          <div className="form-control">
-            <input
-              type="text"
-              name="phone"
-              placeholder="Your Phone"
+              name="name"
+              placeholder="Your Name"
+              required
               className="input w-full"
             />
           </div>
@@ -99,6 +117,25 @@ const Checkout = () => {
               type="email"
               name="email"
               placeholder="Your Email"
+              required
+              className="input w-full"
+            />
+          </div>
+          <div className="form-control">
+            <input
+              type="text"
+              name="phone"
+              placeholder="Your Phone"
+              required
+              className="input w-full"
+            />
+          </div>
+          <div className="form-control">
+            <input
+              type="date"
+              name="date"
+              placeholder=""
+              required
               className="input w-full"
             />
           </div>
@@ -107,15 +144,17 @@ const Checkout = () => {
               className="textarea text-base"
               name="message"
               placeholder="Your Message"
+              required
             ></textarea>
           </div>
-          <div className="form-control col-span-2">
+          <div className="form-control col-span-2 mb-16">
             <button className="btn text-base bg-[#FF3811] border-[#FF3811] text-white hover:text-[#FF3811] hover:bg-white hover:border-[#FF3811]">
               Order Confirm
             </button>
           </div>
         </form>
       </div>
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };
