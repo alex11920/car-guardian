@@ -5,6 +5,8 @@
 
 body {
   font-family: "Inter", sans-serif;
+  @apply text-[#151515];
+  @apply text-base;
 }
 
 .bg-color {
@@ -16,9 +18,6 @@ body {
 
 .bg-sec-color {
   @apply bg-[#151515];
-}
-.text-sec-color {
-  @apply text-[#151515];
 }
 
 .text-p {

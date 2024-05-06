@@ -1,6 +1,6 @@
 import { BiSearch } from "react-icons/bi";
 import { Link, } from "react-router-dom";
-import Logo from "/logo.svg";
+import Logo from "/CGlogo.svg";
 import { useContext } from "react";
 import { AuthContext } from "../Controller/AuthProvider";
 import { CgProfile } from "react-icons/cg";
