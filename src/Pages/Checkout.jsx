@@ -28,10 +28,9 @@ const Checkout = () => {
 
     const name = form.name.value;
     const phone = form.phone.value;
-    const email = form.email.value;
     const date = form.date.value;
     const message = form.message.value;
-    const userEmail = user?.email;
+    const email = user?.email;
     const serviceID = serviceData?.service_id;
     const serviceTitle = serviceData?.title;
     const servicePrice = serviceData?.price;
@@ -39,9 +38,8 @@ const Checkout = () => {
       name,
       phone,
       date,
-      email,
       message,
-      userEmail,
+      email,
       serviceID,
       serviceTitle,
       servicePrice,
@@ -114,15 +112,6 @@ const Checkout = () => {
           </div>
           <div className="form-control">
             <input
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              required
-              className="input w-full"
-            />
-          </div>
-          <div className="form-control">
-            <input
               type="text"
               name="phone"
               placeholder="Your Phone"
@@ -130,7 +119,7 @@ const Checkout = () => {
               className="input w-full"
             />
           </div>
-          <div className="form-control">
+          <div className="form-control col-span-2">
             <input
               type="date"
               name="date"
