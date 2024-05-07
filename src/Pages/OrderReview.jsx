@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { AuthContext } from "../Controller/AuthProvider";
 
 const OrderReview = () => {
@@ -12,6 +12,25 @@ const OrderReview = () => {
       .then((res) => res.json())
       .then((data) => setOrders(data));
   }, []);
+
+  const handleDelete = (_id) => {
+    console.log(_id);
+    const proceed = confirm("Are You sure want to delete");
+    if (proceed) {
+      fetch(`http://localhost:5000/checkout/${_id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.deletedCount > 0) {
+            toast.success("Deleted Successfully");
+            const remaining = orders.filter((order) => order._id !== _id);
+            setOrders(remaining);
+          }
+        });
+    }
+  };
 
   return (
     <div className="mb-24">
@@ -50,7 +69,7 @@ const OrderReview = () => {
                 <td>
                   <div>
                     <h2 className="text-xl text-color font-medium">
-                    {order.name}
+                      {order.name}
                     </h2>
                     <small className="text-p">{order.phone}</small>
                   </div>
@@ -65,7 +84,13 @@ const OrderReview = () => {
                   <button className="btn btn-outline border-green-500 text-green-500 hover:bg-green-500 hover:border-none hover:text-white">
                     Approved
                   </button>
-                  <button className="btn btn-outline btn-circle text-color border-[#ff3811] hover:bg-[#ff3811] hover:border-none hover:text-white">
+                  <button
+                    onClick={() =>
+                      document.getElementById(`my_modal_1_${order._id}`)
+                      .showModal()
+                    }
+                    className="btn btn-outline btn-circle text-color border-[#ff3811] hover:bg-[#ff3811] hover:border-none hover:text-white"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6"
@@ -81,6 +106,22 @@ const OrderReview = () => {
                       />
                     </svg>
                   </button>
+                  <dialog id={`my_modal_1_${order._id}`} className="modal">
+                    <div className="modal-box">
+                      <p className="font-bold text-lg py-4">Are you sure want to delete?</p>
+                      <div className="modal-action">
+                        <form method="dialog">
+                        <button
+                          onClick={() => handleDelete(order._id)}
+                          className="btn bg-color text-white"
+                        >
+                          Delete
+                        </button>
+                          <button className="btn">Close</button>
+                        </form>
+                      </div>
+                    </div>
+                  </dialog>
                 </td>
               </tr>
             ))}
